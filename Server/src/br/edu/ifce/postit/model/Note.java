@@ -1,19 +1,30 @@
 package br.edu.ifce.postit.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Note {
 
+	@Id
+	@GeneratedValue
 	private int id;
 	private String content;
-	private int userId;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
 	
 	public Note(){
-		
 	}
 	
-	public Note(int id, String content, int userId){
+	public Note(int id, String content, User user){
 		this.setId(id);
 		this.setContent(content);
-		this.setUserId(userId);
+		this.setUser(user);
 	}
 
 	public int getId() {
@@ -32,12 +43,12 @@ public class Note {
 		this.content = content;
 	}
 
-	public int getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	

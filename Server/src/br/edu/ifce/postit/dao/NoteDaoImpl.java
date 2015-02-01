@@ -3,12 +3,15 @@ package br.edu.ifce.postit.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-
-import org.hibernate.exception.ConstraintViolationException;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import br.edu.ifce.postit.dao.database.DatabaseFactory;
 import br.edu.ifce.postit.model.Note;
+import br.edu.ifce.postit.model.User;
 
 public class NoteDaoImpl extends DatabaseFactory implements NoteDao{
 
@@ -61,4 +64,18 @@ private EntityManager manager = super.getEntityManager();;
 		}
 	}
 
+	@Override
+	public List<Note> listNoteByUser(User user) {
+		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
+		CriteriaQuery<Note> criteriaQuery = criteriaBuilder.createQuery(Note.class);
+		Root noteRoot = criteriaQuery.from(Note.class);
+		
+		Predicate predicate = criteriaBuilder.equal(noteRoot.get("user"), user); 
+		criteriaQuery.select(noteRoot);
+		criteriaQuery.where(criteriaBuilder.and(predicate));
+		
+		TypedQuery query = manager.createQuery(criteriaQuery);
+		
+		return query.getResultList();
+	}
 }

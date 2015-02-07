@@ -1,4 +1,4 @@
-package br.edu.ifce.postit.dao;
+package br.edu.ifce.postit.server.dao;
 
 import java.util.List;
 
@@ -9,9 +9,9 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import br.edu.ifce.postit.dao.database.DatabaseFactory;
-import br.edu.ifce.postit.model.Note;
-import br.edu.ifce.postit.model.User;
+import br.edu.ifce.postit.server.dao.database.DatabaseFactory;
+import br.edu.ifce.postit.server.model.Note;
+import br.edu.ifce.postit.server.model.User;
 
 public class NoteDaoImpl extends DatabaseFactory implements NoteDao{
 

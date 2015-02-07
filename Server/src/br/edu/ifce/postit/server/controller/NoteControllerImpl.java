@@ -1,13 +1,13 @@
-package br.edu.ifce.postit.controller;
+package br.edu.ifce.postit.server.controller;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-import br.edu.ifce.postit.dao.NoteDaoImpl;
-import br.edu.ifce.postit.model.Note;
-import br.edu.ifce.postit.model.User;
+import br.edu.ifce.postit.server.dao.NoteDaoImpl;
+import br.edu.ifce.postit.server.model.Note;
+import br.edu.ifce.postit.server.model.User;
 
 public class NoteControllerImpl extends UnicastRemoteObject implements Serializable,NoteController{
 

@@ -1,9 +1,9 @@
-package br.edu.ifce.postit.dao;
+package br.edu.ifce.postit.server.dao;
 
 import java.util.List;
 
-import br.edu.ifce.postit.model.Note;
-import br.edu.ifce.postit.model.User;
+import br.edu.ifce.postit.server.model.Note;
+import br.edu.ifce.postit.server.model.User;
 
 public interface NoteDao {
 	

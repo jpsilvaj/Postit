@@ -1,4 +1,4 @@
-package br.edu.ifce.postit.Exception;
+package br.edu.ifce.postit.server.Exception;
 
 public class NoSuchUserException extends Exception {
 

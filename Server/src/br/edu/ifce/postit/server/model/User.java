@@ -1,4 +1,4 @@
-package br.edu.ifce.postit.model;
+package br.edu.ifce.postit.server.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

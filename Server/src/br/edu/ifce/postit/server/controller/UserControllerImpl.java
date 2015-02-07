@@ -1,13 +1,13 @@
-package br.edu.ifce.postit.controller;
+package br.edu.ifce.postit.server.controller;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-import br.edu.ifce.postit.Exception.NoSuchUserException;
-import br.edu.ifce.postit.Exception.UserDuplicateException;
-import br.edu.ifce.postit.dao.UserDaoImpl;
-import br.edu.ifce.postit.model.User;
+import br.edu.ifce.postit.server.Exception.NoSuchUserException;
+import br.edu.ifce.postit.server.Exception.UserDuplicateException;
+import br.edu.ifce.postit.server.dao.UserDaoImpl;
+import br.edu.ifce.postit.server.model.User;
 
 public class UserControllerImpl extends UnicastRemoteObject implements Serializable,UserController{
 

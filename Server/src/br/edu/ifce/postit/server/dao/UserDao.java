@@ -1,10 +1,10 @@
-package br.edu.ifce.postit.dao;
+package br.edu.ifce.postit.server.dao;
 
 import java.util.List;
 
-import br.edu.ifce.postit.Exception.NoSuchUserException;
-import br.edu.ifce.postit.Exception.UserDuplicateException;
-import br.edu.ifce.postit.model.User;
+import br.edu.ifce.postit.server.Exception.NoSuchUserException;
+import br.edu.ifce.postit.server.Exception.UserDuplicateException;
+import br.edu.ifce.postit.server.model.User;
 
 public interface UserDao {
 	

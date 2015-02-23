@@ -16,9 +16,15 @@ Link para github:
 https://github.com/jpsilvaj/Postit
 
 Ferramentas utilizadas:
+
 Eclipse Luna – 4.4 - IDE
+
 Git 1.8.3 – Controle de versão
+
 Github – hospedar código fonte
+
 Hibernate-4.3.8 - ORM
+
 Miglayout-4.0 - View
+
 MySQL-Connector-java.5.1 – Driver para banco de dados

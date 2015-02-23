@@ -5,7 +5,6 @@ import java.awt.Container;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
-
 import net.miginfocom.swing.MigLayout;
 import br.edu.ifce.postit.client.controller.PostitClientController;
 import br.edu.ifce.postit.client.handler.PostitListener;
@@ -18,7 +17,6 @@ public class PostitClient extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = -8069685429796289001L;
-	//private ClientImpl client;
 	private PostitMenuPanel postitMenuPanel = new PostitMenuPanel();
 	private PostitPanel postitPanel = new PostitPanel();
 	private ListNotesPanel listNotesPanel = new ListNotesPanel();
@@ -27,7 +25,7 @@ public class PostitClient extends JFrame{
 		
 	public PostitClient(){
 		super("Postit client - RMI");
-		this.setSize(1080,720);
+		this.setSize(840,680);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.setResizable(false);

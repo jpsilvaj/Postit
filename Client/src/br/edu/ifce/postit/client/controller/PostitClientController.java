@@ -66,7 +66,7 @@ public class PostitClientController {
 		Note note = new Note();
 		try {
 			note = noteController.findNoteById(noteInEdition);
-			if(!note.getContent().equals(noteContent)){
+			if(note != null && !note.getContent().equals(noteContent)){
 				note.setContent(noteContent);
 				noteController.updateNote(note);
 			}
@@ -75,8 +75,6 @@ public class PostitClientController {
 			e.printStackTrace();
 		}
 	}
-	
-	
 	
 	public static void deleteNote(Note note) {
 		try {
@@ -136,15 +134,20 @@ public class PostitClientController {
 	
 	public static void addNotesToView(){
 		try {
+			 Boolean empty = true;
 			 notes = noteController.getNotesByUser(user);
 			 postitClient.getListNotesPanel().removeAllLabels();
 			 for(Note note : notes){
 				 if(note != null){
 					 String titleNote = note.getId() + ": " + getTitleFromNote(note.getContent());
 					 postitClient.getListNotesPanel().addNoteToPanel(titleNote);
-					 postitClient.pack();
+					 empty=false;
 				 }
 			 }
+			 if(empty){
+				 postitClient.getPostitPanel().clearNoteContentTextArea();
+			 }
+			 postitClient.pack();
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

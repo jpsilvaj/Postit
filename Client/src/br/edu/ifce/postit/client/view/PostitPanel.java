@@ -84,4 +84,8 @@ public class PostitPanel extends JPanel{
 	public void setNoteContentTextArea(JTextArea noteContentTextArea) {
 		this.noteContentTextArea = noteContentTextArea;
 	}
+
+	public void clearNoteContentTextArea() {
+		this.noteContentTextArea.setText("");
+	}
 }

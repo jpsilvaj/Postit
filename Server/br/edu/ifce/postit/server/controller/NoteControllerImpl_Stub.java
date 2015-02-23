@@ -10,19 +10,21 @@ public final class NoteControllerImpl_Stub
     private static final java.rmi.server.Operation[] operations = {
 	new java.rmi.server.Operation("void createNote(br.edu.ifce.postit.server.model.Note)"),
 	new java.rmi.server.Operation("void deleteNote(br.edu.ifce.postit.server.model.Note)"),
+	new java.rmi.server.Operation("br.edu.ifce.postit.server.model.Note findNoteById(int)"),
 	new java.rmi.server.Operation("java.util.List getNotesByUser(br.edu.ifce.postit.server.model.User)"),
 	new java.rmi.server.Operation("void updateNote(br.edu.ifce.postit.server.model.Note)")
     };
     
-    private static final long interfaceHash = -2107341449853343627L;
+    private static final long interfaceHash = -9034254752195310627L;
     
     private static final long serialVersionUID = 2;
     
     private static boolean useNewInvoke;
     private static java.lang.reflect.Method $method_createNote_0;
     private static java.lang.reflect.Method $method_deleteNote_1;
-    private static java.lang.reflect.Method $method_getNotesByUser_2;
-    private static java.lang.reflect.Method $method_updateNote_3;
+    private static java.lang.reflect.Method $method_findNoteById_2;
+    private static java.lang.reflect.Method $method_getNotesByUser_3;
+    private static java.lang.reflect.Method $method_updateNote_4;
     
     static {
 	try {
@@ -36,8 +38,9 @@ public final class NoteControllerImpl_Stub
 	    useNewInvoke = true;
 	    $method_createNote_0 = br.edu.ifce.postit.server.controller.NoteController.class.getMethod("createNote", new java.lang.Class[] {br.edu.ifce.postit.server.model.Note.class});
 	    $method_deleteNote_1 = br.edu.ifce.postit.server.controller.NoteController.class.getMethod("deleteNote", new java.lang.Class[] {br.edu.ifce.postit.server.model.Note.class});
-	    $method_getNotesByUser_2 = br.edu.ifce.postit.server.controller.NoteController.class.getMethod("getNotesByUser", new java.lang.Class[] {br.edu.ifce.postit.server.model.User.class});
-	    $method_updateNote_3 = br.edu.ifce.postit.server.controller.NoteController.class.getMethod("updateNote", new java.lang.Class[] {br.edu.ifce.postit.server.model.Note.class});
+	    $method_findNoteById_2 = br.edu.ifce.postit.server.controller.NoteController.class.getMethod("findNoteById", new java.lang.Class[] {int.class});
+	    $method_getNotesByUser_3 = br.edu.ifce.postit.server.controller.NoteController.class.getMethod("getNotesByUser", new java.lang.Class[] {br.edu.ifce.postit.server.model.User.class});
+	    $method_updateNote_4 = br.edu.ifce.postit.server.controller.NoteController.class.getMethod("updateNote", new java.lang.Class[] {br.edu.ifce.postit.server.model.Note.class});
 	} catch (java.lang.NoSuchMethodException e) {
 	    useNewInvoke = false;
 	}
@@ -107,16 +110,55 @@ public final class NoteControllerImpl_Stub
 	}
     }
     
+    // implementation of findNoteById(int)
+    public br.edu.ifce.postit.server.model.Note findNoteById(int $param_int_1)
+	throws java.rmi.RemoteException
+    {
+	try {
+	    if (useNewInvoke) {
+		Object $result = ref.invoke(this, $method_findNoteById_2, new java.lang.Object[] {new java.lang.Integer($param_int_1)}, -8593381845108485221L);
+		return ((br.edu.ifce.postit.server.model.Note) $result);
+	    } else {
+		java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 2, interfaceHash);
+		try {
+		    java.io.ObjectOutput out = call.getOutputStream();
+		    out.writeInt($param_int_1);
+		} catch (java.io.IOException e) {
+		    throw new java.rmi.MarshalException("error marshalling arguments", e);
+		}
+		ref.invoke(call);
+		br.edu.ifce.postit.server.model.Note $result;
+		try {
+		    java.io.ObjectInput in = call.getInputStream();
+		    $result = (br.edu.ifce.postit.server.model.Note) in.readObject();
+		} catch (java.io.IOException e) {
+		    throw new java.rmi.UnmarshalException("error unmarshalling return", e);
+		} catch (java.lang.ClassNotFoundException e) {
+		    throw new java.rmi.UnmarshalException("error unmarshalling return", e);
+		} finally {
+		    ref.done(call);
+		}
+		return $result;
+	    }
+	} catch (java.lang.RuntimeException e) {
+	    throw e;
+	} catch (java.rmi.RemoteException e) {
+	    throw e;
+	} catch (java.lang.Exception e) {
+	    throw new java.rmi.UnexpectedException("undeclared checked exception", e);
+	}
+    }
+    
     // implementation of getNotesByUser(User)
     public java.util.List getNotesByUser(br.edu.ifce.postit.server.model.User $param_User_1)
 	throws java.rmi.RemoteException
     {
 	try {
 	    if (useNewInvoke) {
-		Object $result = ref.invoke(this, $method_getNotesByUser_2, new java.lang.Object[] {$param_User_1}, -6994967948027812471L);
+		Object $result = ref.invoke(this, $method_getNotesByUser_3, new java.lang.Object[] {$param_User_1}, -6994967948027812471L);
 		return ((java.util.List) $result);
 	    } else {
-		java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 2, interfaceHash);
+		java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 3, interfaceHash);
 		try {
 		    java.io.ObjectOutput out = call.getOutputStream();
 		    out.writeObject($param_User_1);
@@ -152,9 +194,9 @@ public final class NoteControllerImpl_Stub
     {
 	try {
 	    if (useNewInvoke) {
-		ref.invoke(this, $method_updateNote_3, new java.lang.Object[] {$param_Note_1}, -7850498547155207022L);
+		ref.invoke(this, $method_updateNote_4, new java.lang.Object[] {$param_Note_1}, -7850498547155207022L);
 	    } else {
-		java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 3, interfaceHash);
+		java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 4, interfaceHash);
 		try {
 		    java.io.ObjectOutput out = call.getOutputStream();
 		    out.writeObject($param_Note_1);

@@ -47,7 +47,7 @@ public class PostitClient extends JFrame{
 		c.add(listNotesPanel,"span");
 	}
 	
-	private void login(){
+	public void login(){
 		username = PostitDialogs.showInputDialog("Insert your username");
 		password = PostitDialogs.showInputDialog("Insert your password");
 		PostitClientController.login(username, password);
@@ -81,7 +81,12 @@ public class PostitClient extends JFrame{
 	public String toString(){
 		return username;
 	}
-
+	
+	public void setNoteInPostitPanel(String noteContent){
+		postitPanel.getNoteContentTextArea().setText(noteContent);
+		postitPanel.getNoteContentTextArea().setCaretPosition(postitPanel.getNoteContentTextArea().getText().length());
+	}
+	
 	public String getPassword() {
 		return password;
 	}
@@ -90,7 +95,15 @@ public class PostitClient extends JFrame{
 		this.password = password;
 	}
 	
-	public void setNoteInPostitPanel(String noteContent){
-		postitPanel.getHistoryMessage().setText(noteContent);
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public void showNotAllowedRemoveTheUser() {
+		JOptionPane.showMessageDialog(null, "Não é possível remover a si mesmo");
 	}
 }

@@ -22,6 +22,7 @@ private EntityManager manager = super.getEntityManager();;
 		try{
 			manager.getTransaction().begin();    
 		    manager.persist(note);
+		    manager.flush();
 		    manager.getTransaction().commit();	
 		}catch(Exception e){
 			manager.getTransaction().rollback();
@@ -35,6 +36,7 @@ private EntityManager manager = super.getEntityManager();;
 			if(noteToRemove != null){
 				manager.getTransaction().begin();
 				manager.remove(noteToRemove);
+				manager.flush();
 				manager.getTransaction().commit();
 			}
 		}catch(Exception e){
@@ -57,6 +59,7 @@ private EntityManager manager = super.getEntityManager();;
 			if(noteToUpdate != null){
 				manager.getTransaction().begin();
 				manager.merge(note);
+				manager.flush();
 				manager.getTransaction().commit();
 			}
 		}catch(Exception e){
@@ -77,5 +80,11 @@ private EntityManager manager = super.getEntityManager();;
 		TypedQuery query = manager.createQuery(criteriaQuery);
 		
 		return query.getResultList();
+	}
+
+	@Override
+	public Note findNoteById(int id) {
+		Note note = manager.find(Note.class,id);
+		return note;
 	}
 }

@@ -12,4 +12,5 @@ public interface NoteController extends Remote{
 	public void updateNote(Note note) throws RemoteException;
 	public void createNote(Note note) throws RemoteException;
 	public void deleteNote(Note note) throws RemoteException;
+	public Note findNoteById(int noteInEdition) throws RemoteException;
 }

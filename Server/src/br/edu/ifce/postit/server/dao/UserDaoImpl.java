@@ -26,7 +26,8 @@ public class UserDaoImpl extends DatabaseFactory implements UserDao{
 		try{
 			manager.getTransaction().begin();    
 		    manager.persist(user);
-		    manager.getTransaction().commit();	
+		    manager.flush();
+		    manager.getTransaction().commit();
 		}catch(ConstraintViolationException e){
 			throw new UserDuplicateException();
 		}
@@ -42,6 +43,7 @@ public class UserDaoImpl extends DatabaseFactory implements UserDao{
 			if(userToRemove != null){
 				manager.getTransaction().begin();
 				manager.remove(userToRemove);
+				manager.flush();
 				manager.getTransaction().commit();
 			}
 		}catch(ConstraintViolationException e){
@@ -68,6 +70,7 @@ public class UserDaoImpl extends DatabaseFactory implements UserDao{
 			if(userToUpdate != null){
 				manager.getTransaction().begin();
 				manager.merge(user);
+				manager.flush();
 				manager.getTransaction().commit();
 			}
 		}catch(ConstraintViolationException e){
@@ -79,7 +82,7 @@ public class UserDaoImpl extends DatabaseFactory implements UserDao{
 	}
 
 	@Override
-	public User findByLoginAndPassword(String login, String password) {
+	public User findByLoginAndPassword(String login, String password) throws NoSuchUserException{
 		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
 		CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
 		Root userRoot = criteriaQuery.from(User.class);
@@ -91,7 +94,19 @@ public class UserDaoImpl extends DatabaseFactory implements UserDao{
 		criteriaQuery.where(criteriaBuilder.and(predicatePassword));
 		
 		TypedQuery query = manager.createQuery(criteriaQuery).setFirstResult(0).setMaxResults(1);
+		List<User> result = query.getResultList();
 		
-		return (User) query.getResultList().get(0);
+		if(result.isEmpty()){
+			throw new NoSuchUserException();
+		}else{
+			return (User) result.get(0);
+		}
+		
+	}
+
+	@Override
+	public User findUserById(int id) {
+		User user = manager.find(User.class,id);
+		return user;
 	}
 }

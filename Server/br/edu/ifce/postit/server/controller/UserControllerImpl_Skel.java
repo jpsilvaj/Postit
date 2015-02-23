@@ -9,11 +9,13 @@ public final class UserControllerImpl_Skel
     private static final java.rmi.server.Operation[] operations = {
 	new java.rmi.server.Operation("void createUser(br.edu.ifce.postit.server.model.User)"),
 	new java.rmi.server.Operation("void deleteUser(br.edu.ifce.postit.server.model.User)"),
+	new java.rmi.server.Operation("br.edu.ifce.postit.server.model.User findUserById(int)"),
 	new java.rmi.server.Operation("br.edu.ifce.postit.server.model.User findUserByLoginAndPassword(java.lang.String, java.lang.String)"),
+	new java.rmi.server.Operation("java.util.List listUsers()"),
 	new java.rmi.server.Operation("boolean login(java.lang.String, java.lang.String)")
     };
     
-    private static final long interfaceHash = 2458198269383853792L;
+    private static final long interfaceHash = -7603939591515341775L;
     
     public java.rmi.server.Operation[] getOperations() {
 	return (java.rmi.server.Operation[]) operations.clone();
@@ -27,10 +29,14 @@ public final class UserControllerImpl_Skel
 		opnum = 0;
 	    } else if (hash == -4577516996290843684L) {
 		opnum = 1;
-	    } else if (hash == 762351086782683544L) {
+	    } else if (hash == 3891365954115048315L) {
 		opnum = 2;
-	    } else if (hash == -3488153054972647034L) {
+	    } else if (hash == 762351086782683544L) {
 		opnum = 3;
+	    } else if (hash == -8646650037484570140L) {
+		opnum = 4;
+	    } else if (hash == -3488153054972647034L) {
+		opnum = 5;
 	    } else {
 		throw new java.rmi.UnmarshalException("invalid method hash");
 	    }
@@ -85,7 +91,28 @@ public final class UserControllerImpl_Skel
 	    break;
 	}
 	    
-	case 2: // findUserByLoginAndPassword(String, String)
+	case 2: // findUserById(int)
+	{
+	    int $param_int_1;
+	    try {
+		java.io.ObjectInput in = call.getInputStream();
+		$param_int_1 = in.readInt();
+	    } catch (java.io.IOException e) {
+		throw new java.rmi.UnmarshalException("error unmarshalling arguments", e);
+	    } finally {
+		call.releaseInputStream();
+	    }
+	    br.edu.ifce.postit.server.model.User $result = server.findUserById($param_int_1);
+	    try {
+		java.io.ObjectOutput out = call.getResultStream(true);
+		out.writeObject($result);
+	    } catch (java.io.IOException e) {
+		throw new java.rmi.MarshalException("error marshalling return", e);
+	    }
+	    break;
+	}
+	    
+	case 3: // findUserByLoginAndPassword(String, String)
 	{
 	    java.lang.String $param_String_1;
 	    java.lang.String $param_String_2;
@@ -110,7 +137,20 @@ public final class UserControllerImpl_Skel
 	    break;
 	}
 	    
-	case 3: // login(String, String)
+	case 4: // listUsers()
+	{
+	    call.releaseInputStream();
+	    java.util.List $result = server.listUsers();
+	    try {
+		java.io.ObjectOutput out = call.getResultStream(true);
+		out.writeObject($result);
+	    } catch (java.io.IOException e) {
+		throw new java.rmi.MarshalException("error marshalling return", e);
+	    }
+	    break;
+	}
+	    
+	case 5: // login(String, String)
 	{
 	    java.lang.String $param_String_1;
 	    java.lang.String $param_String_2;

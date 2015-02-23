@@ -9,11 +9,12 @@ public final class NoteControllerImpl_Skel
     private static final java.rmi.server.Operation[] operations = {
 	new java.rmi.server.Operation("void createNote(br.edu.ifce.postit.server.model.Note)"),
 	new java.rmi.server.Operation("void deleteNote(br.edu.ifce.postit.server.model.Note)"),
+	new java.rmi.server.Operation("br.edu.ifce.postit.server.model.Note findNoteById(int)"),
 	new java.rmi.server.Operation("java.util.List getNotesByUser(br.edu.ifce.postit.server.model.User)"),
 	new java.rmi.server.Operation("void updateNote(br.edu.ifce.postit.server.model.Note)")
     };
     
-    private static final long interfaceHash = -2107341449853343627L;
+    private static final long interfaceHash = -9034254752195310627L;
     
     public java.rmi.server.Operation[] getOperations() {
 	return (java.rmi.server.Operation[]) operations.clone();
@@ -27,10 +28,12 @@ public final class NoteControllerImpl_Skel
 		opnum = 0;
 	    } else if (hash == -5279288368716504063L) {
 		opnum = 1;
-	    } else if (hash == -6994967948027812471L) {
+	    } else if (hash == -8593381845108485221L) {
 		opnum = 2;
-	    } else if (hash == -7850498547155207022L) {
+	    } else if (hash == -6994967948027812471L) {
 		opnum = 3;
+	    } else if (hash == -7850498547155207022L) {
+		opnum = 4;
 	    } else {
 		throw new java.rmi.UnmarshalException("invalid method hash");
 	    }
@@ -85,7 +88,28 @@ public final class NoteControllerImpl_Skel
 	    break;
 	}
 	    
-	case 2: // getNotesByUser(User)
+	case 2: // findNoteById(int)
+	{
+	    int $param_int_1;
+	    try {
+		java.io.ObjectInput in = call.getInputStream();
+		$param_int_1 = in.readInt();
+	    } catch (java.io.IOException e) {
+		throw new java.rmi.UnmarshalException("error unmarshalling arguments", e);
+	    } finally {
+		call.releaseInputStream();
+	    }
+	    br.edu.ifce.postit.server.model.Note $result = server.findNoteById($param_int_1);
+	    try {
+		java.io.ObjectOutput out = call.getResultStream(true);
+		out.writeObject($result);
+	    } catch (java.io.IOException e) {
+		throw new java.rmi.MarshalException("error marshalling return", e);
+	    }
+	    break;
+	}
+	    
+	case 3: // getNotesByUser(User)
 	{
 	    br.edu.ifce.postit.server.model.User $param_User_1;
 	    try {
@@ -108,7 +132,7 @@ public final class NoteControllerImpl_Skel
 	    break;
 	}
 	    
-	case 3: // updateNote(Note)
+	case 4: // updateNote(Note)
 	{
 	    br.edu.ifce.postit.server.model.Note $param_Note_1;
 	    try {

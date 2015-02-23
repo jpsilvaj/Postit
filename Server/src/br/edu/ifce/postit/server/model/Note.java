@@ -2,6 +2,7 @@ package br.edu.ifce.postit.server.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,7 +18,7 @@ public class Note implements Serializable{
 	
 	@Id
 	@GeneratedValue
-	private int id;
+	private Integer id;
 	private String content;
 	
 	@ManyToOne
@@ -28,16 +29,16 @@ public class Note implements Serializable{
 	}
 	
 	public Note(int id, String content, User user){
-		this.setId(id);
+		//this.setId(id);
 		this.setContent(content);
 		this.setUser(user);
 	}
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 

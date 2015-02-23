@@ -4,12 +4,17 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 import br.edu.ifce.postit.client.exception.NoteEmptyException;
+import br.edu.ifce.postit.client.util.TimerUpdateListOfNotes;
+import br.edu.ifce.postit.client.util.TimerUpdateNoteContent;
 import br.edu.ifce.postit.client.view.PostitClient;
 import br.edu.ifce.postit.server.controller.NoteController;
 import br.edu.ifce.postit.server.controller.UserController;
+import br.edu.ifce.postit.server.exception.NoSuchUserException;
 import br.edu.ifce.postit.server.model.Note;
 import br.edu.ifce.postit.server.model.User;
 
@@ -20,6 +25,8 @@ public class PostitClientController {
 	private static PostitClient postitClient;
 	private static User user;
 	private static List<Note> notes;
+	private static Integer noteInEdition;
+	private static Integer userLogged;
 	
 	public static void main(String []args){
 		//Naming.rebind("//localhost/"+postitClient.toString(), PostitClient.getClient());
@@ -31,15 +38,23 @@ public class PostitClientController {
 			e.printStackTrace();
 		}
 		postitClient = new PostitClient();
-		if (user != null){
-			addNotesToView();
+		while(user == null){
+			postitClient.login();
+			
 		}
+		addNotesToView();
+		postitClient.setTitle("Postit client - RMI - " + user.getLogin());
+		Timer timerUpdateClients = new Timer();
+		Timer timerUpdateNoteContent = new Timer();
+		timerUpdateClients.schedule(new TimerUpdateListOfNotes(), 0, 5*1000);
+//		timerUpdateNoteContent.schedule(new TimerUpdateNoteContent(),0, 1*100);
 	}
 	
 	public static void createNote(String noteContent){
 		Note note = new Note();
 		note.setContent(noteContent);
 		note.setUser(user);
+		note.setId(null);
 		try {
 			noteController.createNote(note);
 		} catch (RemoteException e) {
@@ -48,18 +63,17 @@ public class PostitClientController {
 	}
 	
 	public static void updateNote(String noteContent){
-		 for(Note note : notes){
-			 String contentNoteFromDatabase = note.getContent().substring(1, 5);
-			 if (contentNoteFromDatabase.equals(noteContent.substring(1, 5))){
-				 note.setContent(noteContent);
-				 try {
-					noteController.updateNote(note);
-				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		Note note = new Note();
+		try {
+			note = noteController.findNoteById(noteInEdition);
+			if(!note.getContent().equals(noteContent)){
+				note.setContent(noteContent);
+				noteController.updateNote(note);
 			}
-	 	}
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -89,7 +103,12 @@ public class PostitClientController {
 
 	public static void deleteUser(User user){
 		try {
-			userController.deleteUser(user);
+			if(user.getId() == userLogged){
+				postitClient.showNotAllowedRemoveTheUser();
+			}
+			else{
+				userController.deleteUser(user);
+			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -100,8 +119,16 @@ public class PostitClientController {
 		try {
 			if (userController.login(login, password)){
 				user = userController.findUserByLoginAndPassword(login, password);
+				userLogged = user.getId();
+				if(postitClient != null){
+					postitClient.setTitle("Postit client - RMI - " + user.getLogin());
+					PostitClientController.addNotesToView();
+				}
 			}
 		} catch (RemoteException e) {
+			e.printStackTrace();
+		} catch (NoSuchUserException e) {
+			postitClient.login();
 			e.printStackTrace();
 		}
 		
@@ -110,9 +137,13 @@ public class PostitClientController {
 	public static void addNotesToView(){
 		try {
 			 notes = noteController.getNotesByUser(user);
+			 postitClient.getListNotesPanel().removeAllLabels();
 			 for(Note note : notes){
-				 postitClient.getListNotesPanel().addNoteToPanel(note.getContent().substring(0, 5));
-				 postitClient.pack();
+				 if(note != null){
+					 String titleNote = note.getId() + ": " + getTitleFromNote(note.getContent());
+					 postitClient.getListNotesPanel().addNoteToPanel(titleNote);
+					 postitClient.pack();
+				 }
 			 }
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -122,24 +153,88 @@ public class PostitClientController {
 	
 	public static String findNoteByContent(String content) throws NoteEmptyException{
 		for(Note note: notes){
-			String contentFromDatabase = note.getContent().substring(0, 5);
-			if (contentFromDatabase.equals(content)){
-				return note.getContent();
+			String contentFromDatabase = note.getContent();
+			if (getTitleFromNote(contentFromDatabase).equals(content) ){
+				return contentFromDatabase;
 			}
 		}
 		throw new NoteEmptyException();
 	}
 
-	public static void openNote(String noteTitle) {
+	public static void openNote(int noteId) {
 		try {
-			String note = findNoteByContent(noteTitle);
-			postitClient.setNoteInPostitPanel(note);
-		} catch (NoteEmptyException e) {
+			Note note = noteController.findNoteById(noteId);
+			postitClient.setNoteInPostitPanel(note.getContent());
+		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
+	private static String getTitleFromNote(String note){
+		 if(note.length() >=10 )
+			 return note.substring(0, 10);
+		 else
+			 return note;
+	}
+
+	public static Integer getNoteInEdition() {
+		return noteInEdition;
+	}
+
+	public static void setNoteInEdition(Integer noteInEdition) {
+		PostitClientController.noteInEdition = noteInEdition;
+	}
 	
-	
+	public static List<String> getNotesTitle(){
+		ArrayList<String> notesName = new ArrayList<String>();
+		for(Note note : notes){
+			String titleOfNote = note.getId()+": " + getTitleFromNote(note.getContent());
+			notesName.add(titleOfNote);
+		}
+		return notesName;
+	}
+
+	public static Note findNoteById(int id) {
+		try {
+			return noteController.findNoteById(id);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static List<String> getUsernames() {
+		try {
+			List<User> users = userController.listUsers();
+			ArrayList<String> usernames = new ArrayList<String>();
+			for(User user : users){
+				usernames.add(user.getId() + ": " + user.getLogin());
+			}
+			return usernames;
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static User findUserById(int id) {
+		try {
+			return userController.findUserById(id);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static int getUserLogged() {
+		return userLogged;
+	}
+
+	public static void setUserLogged(int userLogged) {
+		PostitClientController.userLogged = userLogged;
+	}
 }

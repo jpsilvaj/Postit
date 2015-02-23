@@ -65,4 +65,8 @@ public class ListNotesPanel extends JPanel{
 //			this.listOfNotes.remove(empty);
 //		}
 	}
+	
+	public void removeAllLabels(){
+		listOfNotes.removeAll();
+	}
 }

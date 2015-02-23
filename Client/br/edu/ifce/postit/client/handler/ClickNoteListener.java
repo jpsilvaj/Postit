@@ -12,9 +12,11 @@ public class ClickNoteListener implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		JLabel label = (JLabel) arg0.getComponent();
-		String noteTitle = label.getText();
-		PostitClientController.openNote(noteTitle);
-		
+		String noteLabel = label.getText();
+		String noteTitle = noteLabel.split(":")[1].trim();
+		int noteId = new Integer(noteLabel.split(":")[0]);
+		PostitClientController.setNoteInEdition(noteId);
+		PostitClientController.openNote(noteId);
 	}
 
 	@Override

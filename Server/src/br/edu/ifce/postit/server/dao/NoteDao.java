@@ -12,6 +12,6 @@ public interface NoteDao {
 	public List<Note> listNote();
 	public List<Note> listNoteByUser(User user);
 	public void update(Note note);
-
+	public Note findNoteById(int id);
 
 }

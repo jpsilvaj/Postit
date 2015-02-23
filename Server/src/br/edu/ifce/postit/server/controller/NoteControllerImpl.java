@@ -40,4 +40,9 @@ public class NoteControllerImpl extends UnicastRemoteObject implements Serializa
 	public void deleteNote(Note note) throws RemoteException {
 		noteDao.delete(note);
 	}
+
+	@Override
+	public Note findNoteById(int noteInEdition) throws RemoteException {
+		return noteDao.findNoteById(noteInEdition);
+	}
 }

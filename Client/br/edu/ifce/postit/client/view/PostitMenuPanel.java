@@ -55,6 +55,16 @@ public class PostitMenuPanel extends JPanel{
 		deleteNoteMenuItem.setActionCommand("delete_note");
 		deleteNoteMenuItem.addActionListener( new MenuListener());
 		
+		JMenu user = new JMenu("User");
+		note.setMnemonic(KeyEvent.VK_R);
+		ImageIcon userIcon = new ImageIcon("user.png");
+		
+		JMenuItem loginMenuItem = new JMenuItem("Login", noteIcon);
+		loginMenuItem.setMnemonic(KeyEvent.VK_D);
+		loginMenuItem.setToolTipText("Login");
+		loginMenuItem.setActionCommand("login");
+		loginMenuItem.addActionListener(new MenuListener());
+		
 		JMenuItem createUserMenuItem = new JMenuItem("Create user", noteIcon);
 		createUserMenuItem.setMnemonic(KeyEvent.VK_D);
 		createUserMenuItem.setToolTipText("Create user");
@@ -79,13 +89,15 @@ public class PostitMenuPanel extends JPanel{
 		
 		file.add(eMenuItem);
 		note.add(createNoteMenuItem);
-		note.add(createUserMenuItem);
-		note.add(deleteUserMenuItem);
 		note.add(deleteNoteMenuItem);
+		user.add(loginMenuItem);
+		user.add(createUserMenuItem);
+		user.add(deleteUserMenuItem);
 		help.add(aboutMenuItem);
 
 		menuBar.add(file);
 		menuBar.add(note);
+		menuBar.add(user);
 		menuBar.add(help);
 		
 		this.add(menuBar);

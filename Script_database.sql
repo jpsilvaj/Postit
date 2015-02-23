@@ -1,5 +1,7 @@
 CREATE DATABASE postit;
 
+GRANT ALL PRIVILEGES on postit.* to postit@localhost identified by "postit";
+
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `login` varchar(255) DEFAULT NULL,

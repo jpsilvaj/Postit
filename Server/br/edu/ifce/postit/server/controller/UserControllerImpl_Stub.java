@@ -10,19 +10,23 @@ public final class UserControllerImpl_Stub
     private static final java.rmi.server.Operation[] operations = {
 	new java.rmi.server.Operation("void createUser(br.edu.ifce.postit.server.model.User)"),
 	new java.rmi.server.Operation("void deleteUser(br.edu.ifce.postit.server.model.User)"),
+	new java.rmi.server.Operation("br.edu.ifce.postit.server.model.User findUserById(int)"),
 	new java.rmi.server.Operation("br.edu.ifce.postit.server.model.User findUserByLoginAndPassword(java.lang.String, java.lang.String)"),
+	new java.rmi.server.Operation("java.util.List listUsers()"),
 	new java.rmi.server.Operation("boolean login(java.lang.String, java.lang.String)")
     };
     
-    private static final long interfaceHash = 2458198269383853792L;
+    private static final long interfaceHash = -7603939591515341775L;
     
     private static final long serialVersionUID = 2;
     
     private static boolean useNewInvoke;
     private static java.lang.reflect.Method $method_createUser_0;
     private static java.lang.reflect.Method $method_deleteUser_1;
-    private static java.lang.reflect.Method $method_findUserByLoginAndPassword_2;
-    private static java.lang.reflect.Method $method_login_3;
+    private static java.lang.reflect.Method $method_findUserById_2;
+    private static java.lang.reflect.Method $method_findUserByLoginAndPassword_3;
+    private static java.lang.reflect.Method $method_listUsers_4;
+    private static java.lang.reflect.Method $method_login_5;
     
     static {
 	try {
@@ -36,8 +40,10 @@ public final class UserControllerImpl_Stub
 	    useNewInvoke = true;
 	    $method_createUser_0 = br.edu.ifce.postit.server.controller.UserController.class.getMethod("createUser", new java.lang.Class[] {br.edu.ifce.postit.server.model.User.class});
 	    $method_deleteUser_1 = br.edu.ifce.postit.server.controller.UserController.class.getMethod("deleteUser", new java.lang.Class[] {br.edu.ifce.postit.server.model.User.class});
-	    $method_findUserByLoginAndPassword_2 = br.edu.ifce.postit.server.controller.UserController.class.getMethod("findUserByLoginAndPassword", new java.lang.Class[] {java.lang.String.class, java.lang.String.class});
-	    $method_login_3 = br.edu.ifce.postit.server.controller.UserController.class.getMethod("login", new java.lang.Class[] {java.lang.String.class, java.lang.String.class});
+	    $method_findUserById_2 = br.edu.ifce.postit.server.controller.UserController.class.getMethod("findUserById", new java.lang.Class[] {int.class});
+	    $method_findUserByLoginAndPassword_3 = br.edu.ifce.postit.server.controller.UserController.class.getMethod("findUserByLoginAndPassword", new java.lang.Class[] {java.lang.String.class, java.lang.String.class});
+	    $method_listUsers_4 = br.edu.ifce.postit.server.controller.UserController.class.getMethod("listUsers", new java.lang.Class[] {});
+	    $method_login_5 = br.edu.ifce.postit.server.controller.UserController.class.getMethod("login", new java.lang.Class[] {java.lang.String.class, java.lang.String.class});
 	} catch (java.lang.NoSuchMethodException e) {
 	    useNewInvoke = false;
 	}
@@ -107,20 +113,19 @@ public final class UserControllerImpl_Stub
 	}
     }
     
-    // implementation of findUserByLoginAndPassword(String, String)
-    public br.edu.ifce.postit.server.model.User findUserByLoginAndPassword(java.lang.String $param_String_1, java.lang.String $param_String_2)
+    // implementation of findUserById(int)
+    public br.edu.ifce.postit.server.model.User findUserById(int $param_int_1)
 	throws java.rmi.RemoteException
     {
 	try {
 	    if (useNewInvoke) {
-		Object $result = ref.invoke(this, $method_findUserByLoginAndPassword_2, new java.lang.Object[] {$param_String_1, $param_String_2}, 762351086782683544L);
+		Object $result = ref.invoke(this, $method_findUserById_2, new java.lang.Object[] {new java.lang.Integer($param_int_1)}, 3891365954115048315L);
 		return ((br.edu.ifce.postit.server.model.User) $result);
 	    } else {
 		java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 2, interfaceHash);
 		try {
 		    java.io.ObjectOutput out = call.getOutputStream();
-		    out.writeObject($param_String_1);
-		    out.writeObject($param_String_2);
+		    out.writeInt($param_int_1);
 		} catch (java.io.IOException e) {
 		    throw new java.rmi.MarshalException("error marshalling arguments", e);
 		}
@@ -147,16 +152,91 @@ public final class UserControllerImpl_Stub
 	}
     }
     
-    // implementation of login(String, String)
-    public boolean login(java.lang.String $param_String_1, java.lang.String $param_String_2)
+    // implementation of findUserByLoginAndPassword(String, String)
+    public br.edu.ifce.postit.server.model.User findUserByLoginAndPassword(java.lang.String $param_String_1, java.lang.String $param_String_2)
+	throws br.edu.ifce.postit.server.exception.NoSuchUserException, java.rmi.RemoteException
+    {
+	try {
+	    if (useNewInvoke) {
+		Object $result = ref.invoke(this, $method_findUserByLoginAndPassword_3, new java.lang.Object[] {$param_String_1, $param_String_2}, 762351086782683544L);
+		return ((br.edu.ifce.postit.server.model.User) $result);
+	    } else {
+		java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 3, interfaceHash);
+		try {
+		    java.io.ObjectOutput out = call.getOutputStream();
+		    out.writeObject($param_String_1);
+		    out.writeObject($param_String_2);
+		} catch (java.io.IOException e) {
+		    throw new java.rmi.MarshalException("error marshalling arguments", e);
+		}
+		ref.invoke(call);
+		br.edu.ifce.postit.server.model.User $result;
+		try {
+		    java.io.ObjectInput in = call.getInputStream();
+		    $result = (br.edu.ifce.postit.server.model.User) in.readObject();
+		} catch (java.io.IOException e) {
+		    throw new java.rmi.UnmarshalException("error unmarshalling return", e);
+		} catch (java.lang.ClassNotFoundException e) {
+		    throw new java.rmi.UnmarshalException("error unmarshalling return", e);
+		} finally {
+		    ref.done(call);
+		}
+		return $result;
+	    }
+	} catch (java.lang.RuntimeException e) {
+	    throw e;
+	} catch (java.rmi.RemoteException e) {
+	    throw e;
+	} catch (br.edu.ifce.postit.server.exception.NoSuchUserException e) {
+	    throw e;
+	} catch (java.lang.Exception e) {
+	    throw new java.rmi.UnexpectedException("undeclared checked exception", e);
+	}
+    }
+    
+    // implementation of listUsers()
+    public java.util.List listUsers()
 	throws java.rmi.RemoteException
     {
 	try {
 	    if (useNewInvoke) {
-		Object $result = ref.invoke(this, $method_login_3, new java.lang.Object[] {$param_String_1, $param_String_2}, -3488153054972647034L);
+		Object $result = ref.invoke(this, $method_listUsers_4, null, -8646650037484570140L);
+		return ((java.util.List) $result);
+	    } else {
+		java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 4, interfaceHash);
+		ref.invoke(call);
+		java.util.List $result;
+		try {
+		    java.io.ObjectInput in = call.getInputStream();
+		    $result = (java.util.List) in.readObject();
+		} catch (java.io.IOException e) {
+		    throw new java.rmi.UnmarshalException("error unmarshalling return", e);
+		} catch (java.lang.ClassNotFoundException e) {
+		    throw new java.rmi.UnmarshalException("error unmarshalling return", e);
+		} finally {
+		    ref.done(call);
+		}
+		return $result;
+	    }
+	} catch (java.lang.RuntimeException e) {
+	    throw e;
+	} catch (java.rmi.RemoteException e) {
+	    throw e;
+	} catch (java.lang.Exception e) {
+	    throw new java.rmi.UnexpectedException("undeclared checked exception", e);
+	}
+    }
+    
+    // implementation of login(String, String)
+    public boolean login(java.lang.String $param_String_1, java.lang.String $param_String_2)
+	throws br.edu.ifce.postit.server.exception.NoSuchUserException, java.rmi.RemoteException
+    {
+	try {
+	    if (useNewInvoke) {
+		Object $result = ref.invoke(this, $method_login_5, new java.lang.Object[] {$param_String_1, $param_String_2}, -3488153054972647034L);
 		return ((java.lang.Boolean) $result).booleanValue();
 	    } else {
-		java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 3, interfaceHash);
+		java.rmi.server.RemoteCall call = ref.newCall((java.rmi.server.RemoteObject) this, operations, 5, interfaceHash);
 		try {
 		    java.io.ObjectOutput out = call.getOutputStream();
 		    out.writeObject($param_String_1);
@@ -179,6 +259,8 @@ public final class UserControllerImpl_Stub
 	} catch (java.lang.RuntimeException e) {
 	    throw e;
 	} catch (java.rmi.RemoteException e) {
+	    throw e;
+	} catch (br.edu.ifce.postit.server.exception.NoSuchUserException e) {
 	    throw e;
 	} catch (java.lang.Exception e) {
 	    throw new java.rmi.UnexpectedException("undeclared checked exception", e);

@@ -3,6 +3,7 @@ package br.edu.ifce.postit.server.controller;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 import br.edu.ifce.postit.server.dao.UserDaoImpl;
 import br.edu.ifce.postit.server.exception.NoSuchUserException;
@@ -42,7 +43,7 @@ public class UserControllerImpl extends UnicastRemoteObject implements Serializa
 	}
 
 	@Override
-	public boolean login(String login, String password) throws RemoteException {
+	public boolean login(String login, String password) throws RemoteException, NoSuchUserException {
 		if(userDao.findByLoginAndPassword(login, password) != null){
 			return true;
 		}
@@ -51,7 +52,17 @@ public class UserControllerImpl extends UnicastRemoteObject implements Serializa
 
 	@Override
 	public User findUserByLoginAndPassword(String login, String password)
-			throws RemoteException {
+			throws RemoteException, NoSuchUserException {
 		return userDao.findByLoginAndPassword(login, password);
+	}
+
+	@Override
+	public List<User> listUsers() throws RemoteException {
+		return userDao.listUser();
+	}
+
+	@Override
+	public User findUserById(int id) throws RemoteException {
+		return userDao.findUserById(id);
 	}
 }

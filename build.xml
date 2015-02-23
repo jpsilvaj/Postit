@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." name="rmi compiler" default="compile">
+    <target name="compile">
+    	<rmic base="./bin" sourcebase="Server"
+    	            classname="br.edu.ifce.postit.server.controller.NoteControllerImpl"/>
+    	<rmic base="./bin" sourcebase="Server"
+    				classname="br.edu.ifce.postit.server.controller.UserControllerImpl"/>
+    </target>
+</project>

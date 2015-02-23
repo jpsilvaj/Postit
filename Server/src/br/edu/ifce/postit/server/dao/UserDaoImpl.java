@@ -11,9 +11,9 @@ import javax.persistence.criteria.Root;
 
 import org.hibernate.exception.ConstraintViolationException;
 
-import br.edu.ifce.postit.server.Exception.NoSuchUserException;
-import br.edu.ifce.postit.server.Exception.UserDuplicateException;
 import br.edu.ifce.postit.server.dao.database.DatabaseFactory;
+import br.edu.ifce.postit.server.exception.NoSuchUserException;
+import br.edu.ifce.postit.server.exception.UserDuplicateException;
 import br.edu.ifce.postit.server.model.Note;
 import br.edu.ifce.postit.server.model.User;
 
@@ -79,14 +79,16 @@ public class UserDaoImpl extends DatabaseFactory implements UserDao{
 	}
 
 	@Override
-	public User findByLogin(String login) {
+	public User findByLoginAndPassword(String login, String password) {
 		CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
 		CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
 		Root userRoot = criteriaQuery.from(User.class);
 		
-		Predicate predicate = criteriaBuilder.equal(userRoot.get("login"), login); 
+		Predicate predicateLogin = criteriaBuilder.equal(userRoot.get("login"), login);
+		Predicate predicatePassword = criteriaBuilder.equal(userRoot.get("password"), password);
 		criteriaQuery.select(userRoot);
-		criteriaQuery.where(criteriaBuilder.and(predicate));
+		criteriaQuery.where(criteriaBuilder.and(predicateLogin));
+		criteriaQuery.where(criteriaBuilder.and(predicatePassword));
 		
 		TypedQuery query = manager.createQuery(criteriaQuery).setFirstResult(0).setMaxResults(1);
 		

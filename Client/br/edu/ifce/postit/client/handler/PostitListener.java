@@ -4,29 +4,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import javax.swing.JOptionPane;
-import javax.swing.text.Document;
-import br.edu.ifce.postit.client.controller.ClientController;
+
+import br.edu.ifce.postit.client.controller.ClientControllerImpl;
+import br.edu.ifce.postit.client.controller.PostitClientController;
 
 public class PostitListener implements ActionListener, WindowListener{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if(e.getActionCommand() == "save_note"){
+				//PostitClientController.createNote(noteContent);
 			}
-			else if(e.getActionCommand() == "save_user"){
+			else if(e.getActionCommand() == "edit_note"){
+				//TODO:Implementar a busca pelo titulo da nota
+//				PostitClientController.updateNote(content);
 			}
-			else if(e.getActionCommand() == "delete_note"){
-			}
-			else if(e.getActionCommand() == "delete_user"){
-			}
-			
 		}
 
 		@Override
 		public void windowOpened(WindowEvent e) {
 			// TODO Implement address of the URI RMI
-			
 		}
 
 		@Override
@@ -37,7 +34,7 @@ public class PostitListener implements ActionListener, WindowListener{
 		@Override
 		public void windowClosed(WindowEvent e) {
 			try{
-				ClientController.exit();
+				//TODO:ClientControllerImpl.exit();
 			}catch(Exception exception){
 				exception.printStackTrace();
 			}

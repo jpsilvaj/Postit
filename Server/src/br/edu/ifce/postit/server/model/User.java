@@ -1,12 +1,18 @@
 package br.edu.ifce.postit.server.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
-public class User {
+public class User implements Serializable{
+	
+	@Transient
+	private static final long serialVersionUID = -4581972588289806306L;
 
 	@Id
 	@GeneratedValue

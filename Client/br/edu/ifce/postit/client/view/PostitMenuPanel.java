@@ -61,7 +61,7 @@ public class PostitMenuPanel extends JPanel{
 		createUserMenuItem.setActionCommand("create_user");
 		createUserMenuItem.addActionListener(new MenuListener());
 		
-		JMenuItem deleteUserMenuItem = new JMenuItem("Delete User", noteIcon);
+		JMenuItem deleteUserMenuItem = new JMenuItem("Delete user", noteIcon);
 		deleteUserMenuItem.setMnemonic(KeyEvent.VK_R);
 		deleteUserMenuItem.setToolTipText("Delete user");
 		deleteUserMenuItem.setActionCommand("delete_user");

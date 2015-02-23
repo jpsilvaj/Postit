@@ -15,7 +15,7 @@ public class NoteControllerImpl extends UnicastRemoteObject implements Serializa
 	 * 
 	 */
 	private static final long serialVersionUID = -8716956486794693250L;
-	NoteDaoImpl noteDao = new NoteDaoImpl();
+	private NoteDaoImpl noteDao = new NoteDaoImpl();
 	
 	protected NoteControllerImpl() throws RemoteException {
 		super();
@@ -31,4 +31,13 @@ public class NoteControllerImpl extends UnicastRemoteObject implements Serializa
 		noteDao.update(note);
 	}
 
+	@Override
+	public void createNote(Note note) throws RemoteException {
+		noteDao.save(note);
+	}
+
+	@Override
+	public void deleteNote(Note note) throws RemoteException {
+		noteDao.delete(note);
+	}
 }

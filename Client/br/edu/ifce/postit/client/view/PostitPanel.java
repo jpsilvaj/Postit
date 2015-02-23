@@ -14,6 +14,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 
+import br.edu.ifce.postit.client.handler.PostitListener;
+
 public class PostitPanel extends JPanel{
 
 	/**
@@ -23,8 +25,6 @@ public class PostitPanel extends JPanel{
 	
 	JScrollPane historyMessageScrolledPane;
 	private JTextArea historyMessage;
-	JPanel sendMessagePanel;
-	private JTextField textBox;
 
 	public PostitPanel(){
 		this.configureChat();
@@ -32,7 +32,7 @@ public class PostitPanel extends JPanel{
 
 	private void configureChat(){
 		historyMessage = new JTextArea(35,90);
-		historyMessage.setEditable(false);
+		historyMessage.setEditable(true);
 		historyMessage.setLineWrap(true);
 		historyMessage.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.DARK_GRAY));
 		
@@ -43,24 +43,9 @@ public class PostitPanel extends JPanel{
 	            e.getAdjustable().setValue(e.getAdjustable().getMaximum());  
 	        }
 	    });
-		
-		textBox = new JTextField(80);
-		textBox.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.DARK_GRAY));
-		textBox.setActionCommand("send_message");
-		textBox.addActionListener(new ChatListener());
-		
-		JButton send = new JButton("Send");
-		send.setActionCommand("send_message");
-		send.addActionListener(new ChatListener());
-		
-		sendMessagePanel = new JPanel();
-		sendMessagePanel.setLayout(new FlowLayout());
-		sendMessagePanel.add(textBox);
-		sendMessagePanel.add(send);
 	
 		this.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
 		this.add(historyMessageScrolledPane);
-		this.add(sendMessagePanel);
 		this.setVisible(true);
 		
 	}
@@ -72,13 +57,4 @@ public class PostitPanel extends JPanel{
 	public void setHistoryMessage(JTextArea historyMessage) {
 		this.historyMessage = historyMessage;
 	}
-	
-	public JTextField getTextBox() {
-		return textBox;
-	}
-
-	public void setTextBox(JTextField textBox) {
-		this.textBox = textBox;
-	}
-
 }

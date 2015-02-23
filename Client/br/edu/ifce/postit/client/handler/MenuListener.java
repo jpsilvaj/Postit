@@ -3,10 +3,11 @@ package br.edu.ifce.postit.client.handler;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import br.edu.ifce.postit.client.controller.ClientController;
+
+import br.edu.ifce.postit.client.controller.PostitClientController;
 import br.edu.ifce.postit.client.util.Constants;
+import br.edu.ifce.postit.client.util.PostitDialogs;
 
 public class MenuListener implements ActionListener{
 
@@ -14,7 +15,7 @@ public class MenuListener implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand() == "exit"){
 			try{
-				ClientController.exit();
+				//TODO:ClientControllerImpl.exit();
 			}catch(Exception exception){
 				exception.printStackTrace();
 			}
@@ -23,16 +24,19 @@ public class MenuListener implements ActionListener{
 			}
 		}
 		else if(e.getActionCommand() == "create_note"){
-			//TODO:Implement create_note
+			PostitClientController.createNote("nova nota");
 		}
 		else if(e.getActionCommand() == "create_user"){
-			// TODO:Implement create_user
-		}
-		else if(e.getActionCommand() == "login"){
-			// TODO:Implement login
+			//TODO: Show input to name and password
+			String username = PostitDialogs.showInputDialog("Insira o nome do usuário");
+			String password = PostitDialogs.showInputDialog("Insira a senha do usuário");
+			PostitClientController.createUser(username, password);
 		}
 		else if(e.getActionCommand() == "find_note"){
-			//TODO:Implement find_note
+			PostitClientController.addNotesToView();
+		}
+		else if(e.getActionCommand() == "about"){
+			JOptionPane.showMessageDialog(null, Constants.ABOUT);
 		}
 	}
 	

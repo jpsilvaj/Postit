@@ -29,4 +29,8 @@ Miglayout-4.0 - View
 
 MySQL-Connector-java.5.1 – Driver para banco de dados
 
-As libs utilizadas estão armazenadas dentro da pasta Libs, não é necessário realizar o download. Talvez seja preciso adicioná-las ao build path
+Mysql Workbench - 6.2 - Diagrama e modelo MER
+
+É possível verificar o relacionamento das entidades da aplicação no arquivo post-it.mwb 
+
+As libs utilizadas para implementação estão armazenadas dentro da pasta Libs, não é necessário realizar o download. Talvez seja preciso apenas adicioná-las ao build path

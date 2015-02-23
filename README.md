@@ -28,3 +28,5 @@ Hibernate-4.3.8 - ORM
 Miglayout-4.0 - View
 
 MySQL-Connector-java.5.1 – Driver para banco de dados
+
+As libs utilizadas estão armazenadas dentro da pasta Libs, não é necessário realizar o download. Talvez seja preciso adicioná-las ao build path
